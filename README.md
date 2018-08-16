@@ -24,3 +24,21 @@ docker run --rm -v ~/.netrc:/root/.netrc:ro wingrunr21/alpine-heroku-cli list
 # app2
 # ...
 ```
+
+### Alias
+Another option is to create an alias on `~/.bashrc` or `~/.zshrc` to map to heroku inside docker.
+
+```bash
+alias heroku="touch ~/.netrc && docker run --rm -it -v ~/.netrc:/root/.netrc -v $(pwd):/app -w /app brunodles/alpine-heroku-cli"
+```
+
+This alias have one "setup step" to make everything work fine.
+* Create a `.netrc` file inside user home
+* Run docker command
+
+This docker command will:
+* Remove itself on the end
+* Make a link between host and guest `.netrc` files. (it's a volume)
+* Make a volume with local folder and `app` folder inside container
+
+This will ensure you can run Heroku CLI as usual.
