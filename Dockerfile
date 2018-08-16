@@ -5,5 +5,6 @@ LABEL description='Heroku CLI packaged on alpine linux'
 
 ENV HEROKU_CLI_VERSION '7.7.10'
 RUN yarn global add heroku@$HEROKU_CLI_VERSION
+RUN apk add --no-cache git
 
 ENTRYPOINT ["/usr/local/bin/heroku"]
